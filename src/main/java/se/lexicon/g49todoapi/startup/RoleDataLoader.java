@@ -3,7 +3,7 @@ package se.lexicon.g49todoapi.startup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import se.lexicon.g49todoapi.entity.Role;
+import se.lexicon.g49todoapi.domain.entity.Role;
 import se.lexicon.g49todoapi.repository.RoleRepository;
 
 @Component

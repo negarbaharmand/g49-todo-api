@@ -1,4 +1,4 @@
-package se.lexicon.g49todoapi.entity;
+package se.lexicon.g49todoapi.domain.entity;
 
 
 import jakarta.persistence.*;
