@@ -1,10 +1,6 @@
 package se.lexicon.g49todoapi.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import se.lexicon.g49todoapi.domain.entity.Role;
+import lombok.*;
 
 import java.util.Set;
 
@@ -13,6 +9,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 
+@Builder
 public class UserDTOForm {
     private String email;
     private String password;

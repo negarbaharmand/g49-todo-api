@@ -8,12 +8,20 @@ import se.lexicon.g49todoapi.domain.entity.Role;
 public class RoleConverterImpl implements RoleConverter {
     @Override
     public RoleDTOView toRoleDTO(Role entity) {
-        return new RoleDTOView(entity.getId(), entity.getName());
+        return RoleDTOView.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
+        //return new RoleDTOView(entity.getId(), entity.getName());
 
     }
 
     @Override
     public Role toRoleEntity(RoleDTOView dto) {
-        return new Role(dto.getId(), dto.getName());
+        return Role.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .build();
+        //return new Role(dto.getId(), dto.getName());
     }
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 
 @Entity
 public class User {
@@ -44,7 +45,7 @@ public class User {
 
     public void removeRole(Role role) {
         if (role == null) throw new IllegalArgumentException("Role is null");
-        if (role != null) {
+        if (roles != null) {
             roles.remove(role);
         } else {
             //todo: throw exception if needed...
