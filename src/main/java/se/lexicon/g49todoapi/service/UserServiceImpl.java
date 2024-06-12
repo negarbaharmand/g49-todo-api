@@ -76,19 +76,39 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTOView getByEmail(String email) {
-        //todo: Implement method
-        return null;
+        User user = userRepository.findById(email).orElseThrow(() -> new DataNotFoundException("Email does not exist."));
+        Set<RoleDTOView> roleDTOViews = user.getRoles()
+                .stream()
+                .map(
+                        role -> RoleDTOView.builder()
+                                .id(role.getId())
+                                .name(role.getName())
+                                .build())
+                .collect(Collectors.toSet());
+
+        return UserDTOView.builder()
+                .email(user.getEmail())
+                .roles(roleDTOViews)
+                .build();
     }
 
     @Override
     public void disableEmail(String email) {
-        //todo: Implement method
+        isEmailTaken(email);
+        userRepository.updateExpiredByEmail(email, true);
 
     }
 
     @Override
     public void enableEmail(String email) {
-        //todo: Implement method
+        isEmailTaken(email);
+        userRepository.updateExpiredByEmail(email, false);
+    }
+
+    private void isEmailTaken(String email) {
+        if (!userRepository.existsByEmail(email))
+            throw new DataNotFoundException("Email does not exist.");
 
     }
+
 }
