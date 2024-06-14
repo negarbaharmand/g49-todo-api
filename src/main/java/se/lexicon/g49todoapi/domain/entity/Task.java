@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @ToString(exclude = "person")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 @Entity
 public class Task {
