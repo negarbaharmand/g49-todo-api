@@ -18,6 +18,8 @@ import se.lexicon.g49todoapi.service.TaskService;
 import java.time.LocalDate;
 import java.util.List;
 
+
+@CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
 @RestController
 @RequestMapping("/api/v1/tasks")
 @Validated

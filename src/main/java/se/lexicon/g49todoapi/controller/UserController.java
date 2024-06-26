@@ -16,6 +16,7 @@ import se.lexicon.g49todoapi.domain.dto.UserDTOView;
 import se.lexicon.g49todoapi.service.UserService;
 
 
+@CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
 @RequestMapping("/api/v1/users")
 @RestController
 @Validated
