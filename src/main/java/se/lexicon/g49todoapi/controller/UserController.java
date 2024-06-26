@@ -11,14 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import se.lexicon.g49todoapi.domain.dto.RoleDTOView;
 import se.lexicon.g49todoapi.domain.dto.UserDTOForm;
 import se.lexicon.g49todoapi.domain.dto.UserDTOView;
-import se.lexicon.g49todoapi.domain.entity.User;
 import se.lexicon.g49todoapi.service.UserService;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @RequestMapping("/api/v1/users")
 @RestController
