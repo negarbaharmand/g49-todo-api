@@ -1,6 +1,7 @@
 package se.lexicon.g49todoapi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.g49todoapi.domain.dto.RoleDTOView;
@@ -10,6 +11,7 @@ import se.lexicon.g49todoapi.domain.entity.Role;
 import se.lexicon.g49todoapi.domain.entity.User;
 import se.lexicon.g49todoapi.exception.DataDuplicateException;
 import se.lexicon.g49todoapi.exception.DataNotFoundException;
+import se.lexicon.g49todoapi.exception.EmailServiceFailedException;
 import se.lexicon.g49todoapi.repository.RoleRepository;
 import se.lexicon.g49todoapi.repository.UserRepository;
 import se.lexicon.g49todoapi.util.CustomPasswordEncoder;
@@ -20,14 +22,16 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private CustomPasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final EmailService emailService;
+    private final CustomPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, CustomPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, EmailService emailService, CustomPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -68,6 +72,14 @@ public class UserServiceImpl implements UserService {
                                 .build())
                 .collect(Collectors.toSet());
 
+        //TODO: Send a Welcome Email When registered USER ✅
+        HttpStatusCode emailStatus = emailService.sendRegistrationEmail(dtoForm.getEmail());
+
+        //4. Validate Response
+        if (!emailStatus.is2xxSuccessful()) {
+            System.out.println("was not 200!");
+            throw new EmailServiceFailedException("Email was not sent successfully.");
+        }
 
         return UserDTOView.builder()
                 .email(savedUser.getEmail())
